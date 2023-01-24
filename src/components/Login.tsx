@@ -1,0 +1,94 @@
+import { useFormik } from "formik";
+import { FunctionComponent } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import * as yup from "yup";
+import { sendErrorMessage, sendSuccessMessage } from "../interfaces/feedBack";
+import User from "../interfaces/User";
+import { checkUser } from "../services/userServices";
+
+interface LoginProps {
+  setIsLoggedIn: Function;
+  setIsAdmin: Function;
+}
+
+const Login: FunctionComponent<LoginProps> = ({
+  setIsLoggedIn,
+  setIsAdmin,
+}) => {
+  let formik = useFormik({
+    initialValues: { email: "", password: "" },
+    validationSchema: yup.object({
+      email: yup.string().required().min(5),
+      password: yup.string().required().min(8),
+    }),
+    onSubmit: (user: User) => {
+      checkUser(user)
+        .then((res) => {
+          if (res.data.length) {
+            sendSuccessMessage("Logged in successfully");
+            sessionStorage.setItem(
+              "userData",
+              JSON.stringify({ isLoggedIn: true, isAdmin: res.data[0].isAdmin })
+            );
+            setIsLoggedIn(true);
+            setIsAdmin(res.data[0].isAdmin);
+            navigate("/home");
+          } else {
+            sendErrorMessage("Error!");
+          }
+        })
+        .catch((err) => console.log(err));
+    },
+  });
+  let navigate = useNavigate();
+  return (
+    <>
+      <div className="container col-md-6 d-flex flex-column justify-content-center align-items-center">
+        <h3 className="display-3">Login</h3>
+        <form onSubmit={formik.handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="email">Email Address</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              className="form-control"
+              onChange={formik.handleChange}
+              value={formik.values.email}
+              onBlur={formik.handleBlur}
+            />
+          </div>
+          {formik.touched.email && formik.errors.email && (
+            <p className="text-danger">{formik.errors.email}</p>
+          )}
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              className="form-control"
+              onChange={formik.handleChange}
+              value={formik.values.password}
+              onBlur={formik.handleBlur}
+            />
+          </div>
+          {formik.touched.password && formik.errors.password && (
+            <p className="text-danger">{formik.errors.password}</p>
+          )}
+          <Link to="/register">Dont have an account? Register here.</Link>
+
+          <button
+            type="submit"
+            className="btn btn-secondary mt-3 w-100"
+            disabled={!formik.dirty || !formik.isValid}
+          >
+            Login
+          </button>
+        </form>
+      </div>
+    </>
+  );
+};
+
+export default Login;
