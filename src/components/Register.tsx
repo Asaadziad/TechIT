@@ -20,11 +20,15 @@ const Register: FunctionComponent<RegisterProps> = ({ setIsLoggedIn }) => {
     }),
     onSubmit: (user: User) => {
       addUser({ ...user, isAdmin: false } as User)
-        .then(() => {
+        .then((res) => {
           sendSuccessMessage("Registered successfully.");
           sessionStorage.setItem(
             "userData",
-            JSON.stringify({ isLoggedIn: true, isAdmin: false })
+            JSON.stringify({
+              isLoggedIn: true,
+              isAdmin: false,
+              userId: res.data[0].id,
+            })
           );
           setIsLoggedIn(true);
           navigate("/");

@@ -7,6 +7,10 @@ const usersApi: string = process.env.REACT_APP_API + "/users" || "";
 export function checkUser(user: User) {
   return axios.get(usersApi + `?email=${user.email}&password=${user.password}`);
 }
+//get user by id
+export function getUserById(userId: number) {
+  return axios.get(`${usersApi}/${userId}`);
+}
 //add user - register
 export function addUser(user: User) {
   return axios.post(usersApi, user);

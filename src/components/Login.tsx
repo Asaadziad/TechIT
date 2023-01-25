@@ -28,7 +28,11 @@ const Login: FunctionComponent<LoginProps> = ({
             sendSuccessMessage("Logged in successfully");
             sessionStorage.setItem(
               "userData",
-              JSON.stringify({ isLoggedIn: true, isAdmin: res.data[0].isAdmin })
+              JSON.stringify({
+                isLoggedIn: true,
+                isAdmin: res.data[0].isAdmin,
+                userId: res.data[0].id,
+              })
             );
             setIsLoggedIn(true);
             setIsAdmin(res.data[0].isAdmin);

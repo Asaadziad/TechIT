@@ -36,11 +36,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({
                   Products
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/cart">
-                  Cart
-                </NavLink>
-              </li>
+
               <li className="nav-item">
                 <NavLink className="nav-link" to="/profile">
                   Profile
@@ -48,7 +44,11 @@ const Navbar: FunctionComponent<NavbarProps> = ({
               </li>
             </ul>
             {isLoggedIn && (
-              <div className="d-flex">
+              <div className="d-flex text-light">
+                <NavLink className="nav-link me-3" to="/cart">
+                  <i className="fa-solid fa-cart-shopping me-3 my-3"></i>Cart
+                </NavLink>
+
                 <button
                   className="btn btn-outline-danger"
                   onClick={() => {

@@ -16,7 +16,7 @@ These instructions will get you a copy of the project up and running on your loc
 1. Clone the repository to your local machine:
 
 ```
-git clone https://github.com/USERNAME/TECHIT.git
+git clone https://github.com/asaadziad/TECHIT.git
 ```
 
 2. Navigate to the project directory and install dependencies:
@@ -35,7 +35,7 @@ json-server --watch db.json --port 8000
 4. Create a .env file in the root directory and add the following environment variables:
 
 ```
-REACT_APP_API_URL=http://localhost:8000
+REACT_APP_API=http://localhost:8000
 ```
 
 5. Start the development server:

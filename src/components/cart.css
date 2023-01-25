@@ -1,0 +1,32 @@
+.itemCard {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 20% 60% 20%;
+  padding: 10px;
+}
+.itemCard:not(:first-child) {
+  border-top: 1px solid black;
+}
+.itemCard .itemImg {
+  width: 100%;
+}
+.itemCard .itemInfo {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.itemCard .orderInfo {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+.orderSummary {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid black;
+}

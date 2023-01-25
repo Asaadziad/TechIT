@@ -1,0 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital@1&family=Oswald:wght@200&display=swap");
+.banner {
+  background-image: url("../images/banner2.jpg");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.banner h1 {
+  text-transform: uppercase;
+  font-family: "Merriweather", serif;
+  letter-spacing: 1rem;
+}
+.about {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.about .intro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.about .productCard {
+  width: 12rem;
+}
+@media screen and (min-width: 750px) {
+  .banner {
+    height: 80vh;
+    background-color: rgb(22, 22, 22);
+  }
+  .banner p {
+    font-size: x-large;
+    font-family: "Oswald", sans-serif;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .banner {
+    min-height: 36rem;
+    background-color: rgb(22, 22, 22);
+  }
+  .banner p {
+    font-size: medium;
+    font-family: "Oswald", sans-serif;
+  }
+}

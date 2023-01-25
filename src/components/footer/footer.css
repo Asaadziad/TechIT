@@ -1,0 +1,18 @@
+footer {
+  height: 5rem;
+  margin-top: 3em;
+  border-top: 1px solid black;
+}
+footer .container {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+footer .container span i {
+  padding: 5px;
+}
+footer .container span i:hover {
+  cursor: pointer;
+  color: skyblue;
+}
