@@ -1,4 +1,5 @@
 import { FunctionComponent } from "react";
+import { Link } from "react-router-dom";
 import BrandInfo from "./BrandInfo";
 import "./home.css";
 import Multimedia from "./multimedia/Multimedia";
@@ -15,9 +16,9 @@ const Home: FunctionComponent<HomeProps> = () => {
           Dive into the tech scene with our fresh selection of gear
         </p>
         <div className="bannerMedia">
-          <button className="btn btn-outline-secondary fw-bolder">
+          <Link to="/products" className="btn btn-outline-secondary fw-bolder">
             Shop now
-          </button>
+          </Link>
         </div>
       </section>
       <section className="about">

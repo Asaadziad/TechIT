@@ -4,6 +4,7 @@ import Product from "../interfaces/Product";
 import { addProductToCart } from "../services/cartServices";
 import { deleteProduct, getProducts } from "../services/productsService";
 import AddProduct from "./modals/AddProduct";
+import UpdateProduct from "./modals/UpdateProduct";
 
 interface ProductsProps {
   isAdmin: boolean;
@@ -12,7 +13,9 @@ interface ProductsProps {
 const Products: FunctionComponent<ProductsProps> = ({ isAdmin }) => {
   let [products, setProducts] = useState<Product[]>([]);
   let [openAddModal, setOpenAddModal] = useState<boolean>(false);
+  let [openUpdateModal, setOpenUpdateModal] = useState<boolean>(false);
   let [productsChanged, setProductsChanged] = useState<boolean>(false);
+  let [productId, setProductId] = useState<number>(0);
   useEffect(() => {
     getProducts()
       .then((res) => setProducts(res.data))
@@ -20,6 +23,10 @@ const Products: FunctionComponent<ProductsProps> = ({ isAdmin }) => {
   }, [productsChanged]);
   let handleAddProduct = () => {
     setOpenAddModal(true);
+  };
+  let handleUpdateProduct = (productId: number) => {
+    setOpenUpdateModal(true);
+    setProductId(productId);
   };
   let handleAddToCart = (productId: number) => {
     addProductToCart(productId)
@@ -52,12 +59,10 @@ const Products: FunctionComponent<ProductsProps> = ({ isAdmin }) => {
                   key={item.id}
                 >
                   <div className="card-header">{item.category}</div>
-                  <img
-                    src={item.image}
-                    className="card-img-top"
-                    style={{ height: "100%" }}
-                    alt="..."
-                  />
+                  <div className="card-img-top">
+                    <img src={item.image} alt="..." />
+                  </div>
+
                   <div className="card-body">
                     <h5 className="card-title">{item.name}</h5>
                     <p className="card-text">{item.description}</p>
@@ -71,7 +76,10 @@ const Products: FunctionComponent<ProductsProps> = ({ isAdmin }) => {
                     </button>
                     {isAdmin && (
                       <>
-                        <button className="btn btn-warning ms-1">
+                        <button
+                          className="btn btn-warning ms-1"
+                          onClick={() => handleUpdateProduct(item.id as number)}
+                        >
                           <i className="fa-solid fa-pen-to-square"></i>
                         </button>
                         <button
@@ -98,6 +106,12 @@ const Products: FunctionComponent<ProductsProps> = ({ isAdmin }) => {
         show={openAddModal}
         onHide={() => setOpenAddModal(false)}
         refresh={refresh}
+      />
+      <UpdateProduct
+        show={openUpdateModal}
+        onHide={() => setOpenUpdateModal(false)}
+        refresh={refresh}
+        productId={productId}
       />
     </>
   );

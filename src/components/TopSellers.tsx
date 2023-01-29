@@ -32,9 +32,13 @@ const TopSellers: FunctionComponent<TopSellersProps> = () => {
                 return (
                   <div className="col-md-3 my-1">
                     <div
+                      key={item.id}
                       className="card"
                       style={{ width: "18rem", height: "100%" }}
                     >
+                      <div className="card-header">
+                        <i className="fa-regular fa-heart"></i>
+                      </div>
                       <img
                         src={item.image}
                         className="card-img-top"

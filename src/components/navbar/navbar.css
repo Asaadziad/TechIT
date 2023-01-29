@@ -1,0 +1,12 @@
+@media screen and (min-width: 750px) {
+  .cart {
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  .cart .cart-quantity {
+    background-color: white;
+    border-radius: 30%;
+    color: black;
+  }
+}

@@ -5,9 +5,10 @@ import { updateProduct } from "../services/productsService";
 import "./cart.css";
 interface CartProps {
   isLoggedIn: boolean;
+  setCartItems: Function;
 }
 
-const Cart: FunctionComponent<CartProps> = ({ isLoggedIn }) => {
+const Cart: FunctionComponent<CartProps> = ({ isLoggedIn, setCartItems }) => {
   let [products, setProducts] = useState<Product[]>([]);
   let [total, setTotal] = useState<number>(0);
   let [productsChanged, setProductsChanged] = useState<boolean>(false);
@@ -40,9 +41,10 @@ const Cart: FunctionComponent<CartProps> = ({ isLoggedIn }) => {
       }
       let total = 0;
       for (let item of products) {
-        total += item.price;
+        total += parseInt(item.price as any);
       }
       setTotal(total);
+      setCartItems(products.length);
       setProducts(products);
     } catch (error) {
       console.log(error);

@@ -34,44 +34,40 @@
       "purchases": 0
     },
     {
-      "id": 2,
-      "name": "Microsoft Headphones",
-      "price": 200,
+      "name": "Microsoft Headphones ",
       "category": "Earphones & Headphones",
+      "price": "600",
       "description": "The Microsoft new headphones with high quality",
       "image": "https://m.media-amazon.com/images/I/712lRY36XYS.jpg",
-      "quantity": 2,
-      "purchases": 4
+      "purchases": 4,
+      "id": 2
     },
     {
-      "id": 3,
       "name": "Microsoft Headphones",
-      "price": 200,
-      "category": "Earphones & Headphones",
+      "category": "Laptops & Personal Computers",
+      "price": "180",
       "description": "The Microsoft new headphones with high quality",
       "image": "https://bstore.bezeq.co.il/media/50245/asus-vivobook-asusx1500ea.jpg",
-      "quantity": 2,
-      "purchases": 3
+      "purchases": 3,
+      "id": 3
     },
     {
-      "id": 4,
       "name": "Microsoft Headphones",
-      "price": 200,
-      "category": "Earphones & Headphones",
+      "category": "Laptops & Personal Computers",
+      "price": "20",
       "description": "The Microsoft new headphones with high quality",
       "image": "https://m.media-amazon.com/images/I/51iazuN-+TL._AC_SY300_SX300_.jpg",
-      "quantity": 2,
-      "purchases": 2
+      "purchases": 2,
+      "id": 4
     },
     {
-      "id": 5,
       "name": "Microsoft Headphones",
-      "price": 200,
-      "category": "Earphones & Headphones",
+      "category": "Phones",
+      "price": "5000",
       "description": "The Microsoft new headphones with high quality",
       "image": "https://hotstore.hotmobile.co.il/media/catalog/product/cache/a73c0d5d6c75fbb1966fe13af695aeb7/i/p/iphone_14_plus_starlight_1000x1000_3_1_1_1_1.png",
-      "quantity": 2,
-      "purchases": 15
+      "purchases": 15,
+      "id": 5
     }
   ],
   "categories": [
@@ -92,7 +88,12 @@
     {
       "id": 1,
       "userId": 3,
-      "products": [1, 2],
+      "products": [
+        1,
+        2,
+        1,
+        5
+      ],
       "active": true
     }
   ]

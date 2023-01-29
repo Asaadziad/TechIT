@@ -1,16 +1,42 @@
-import { FunctionComponent } from "react";
+import axios from "axios";
+import { FunctionComponent, useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-
+import "./navbar.css";
 interface NavbarProps {
   isLoggedIn: boolean;
   setIsLoggedIn: Function;
+  cartItems: number;
+  setCartItems: Function;
 }
 
 const Navbar: FunctionComponent<NavbarProps> = ({
   isLoggedIn,
   setIsLoggedIn,
+  cartItems,
+  setCartItems,
 }) => {
   let navigate = useNavigate();
+  let getCart = async () => {
+    try {
+      // get userId from sessionStorage
+      let userId: number = JSON.parse(
+        sessionStorage.getItem("userData") as string
+      ).userId;
+      let cartRes = await axios.get(
+        `${process.env.REACT_APP_API}/carts?userId=${userId}`
+      );
+      // get user cart (products numbers array)
+      let productsNum = cartRes.data[0].products.length;
+      console.log(productsNum);
+      setCartItems(productsNum);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getCart();
+  }, [isLoggedIn]);
   return (
     <>
       <nav className="navbar navbar-dark navbar-expand-lg bg-dark">
@@ -46,7 +72,14 @@ const Navbar: FunctionComponent<NavbarProps> = ({
             {isLoggedIn && (
               <div className="d-flex text-light">
                 <NavLink className="nav-link me-3" to="/cart">
-                  <i className="fa-solid fa-cart-shopping me-3 my-3"></i>Cart
+                  <span className="cart">
+                    <span className="cart-icon">
+                      <i className="fa-solid fa-cart-shopping me-3 my-3"></i>
+                    </span>
+
+                    <span className="cart-text">Cart</span>
+                    <span className="cart-quantity ms-3 p-1">{cartItems}</span>
+                  </span>
                 </NavLink>
 
                 <button
@@ -57,6 +90,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({
                       "userData",
                       JSON.stringify({ isLoggedIn: false, isAdmin: false })
                     );
+                    setCartItems(0);
                     navigate("/");
                   }}
                 >

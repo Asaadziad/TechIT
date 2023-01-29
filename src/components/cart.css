@@ -22,6 +22,10 @@
   align-items: center;
   flex-direction: column;
 }
+.orderInfo i:hover {
+  cursor: pointer;
+}
+
 .orderSummary {
   width: 100%;
   display: flex;

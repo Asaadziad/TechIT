@@ -24,7 +24,7 @@ const Profile: FunctionComponent<ProfileProps> = () => {
           <div className="row g-0">
             <div className="col-md-4">
               <img
-                src="../images/avatar.jpg"
+                src="/images/avatar.jpg"
                 className="img-fluid rounded-start pfp"
                 style={{ height: "100%" }}
                 alt="..."
