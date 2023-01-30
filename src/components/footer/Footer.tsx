@@ -4,7 +4,7 @@ interface FooterProps {}
 
 const Footer: FunctionComponent<FooterProps> = () => {
   return (
-    <footer>
+    <footer className="bg-light">
       <div className="container">
         <span className="brand">TechIT</span>
         <span className="socials">

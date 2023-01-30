@@ -1,4 +1,5 @@
 import { FunctionComponent, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Product from "../interfaces/Product";
 import { getProducts } from "../services/productsService";
 
@@ -11,7 +12,7 @@ const TopSellers: FunctionComponent<TopSellersProps> = () => {
       .then((res) => setProducts(res.data))
       .catch((err) => console.log(err));
   }, []);
-
+  let navigate = useNavigate();
   return (
     <>
       {" "}
@@ -22,7 +23,7 @@ const TopSellers: FunctionComponent<TopSellersProps> = () => {
           {products.length ? (
             products
               .filter((item) => {
-                return item.purchases != 0;
+                return item.purchases !== 0;
               })
               .sort((item: Product, item2: Product) => {
                 return item2.purchases - item.purchases;
@@ -30,21 +31,21 @@ const TopSellers: FunctionComponent<TopSellersProps> = () => {
               .slice(0, 4)
               .map((item) => {
                 return (
-                  <div className="col-md-3 my-1">
+                  <div className="col-md-3 my-1" key={item.id}>
                     <div
-                      key={item.id}
                       className="card"
                       style={{ width: "18rem", height: "100%" }}
                     >
                       <div className="card-header">
                         <i className="fa-regular fa-heart"></i>
                       </div>
-                      <img
-                        src={item.image}
-                        className="card-img-top"
-                        style={{ height: "100%" }}
-                        alt="..."
-                      />
+                      <div className="card-img-top">
+                        <img
+                          src={item.image}
+                          alt="..."
+                          onClick={() => navigate(`/products/${item.id}`)}
+                        />
+                      </div>
                       <div className="card-footer d-flex justify-content-between">
                         <span>{item.price}$</span>
                         <span>{item.purchases} purchases</span>

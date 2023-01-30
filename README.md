@@ -1,6 +1,15 @@
 # TECHIT - Online Ecommerce Project
 
-Welcome to the TECHIT online ecommerce project repository on GitHub!
+Welcome to the TECHIT - ReactJs Ecommerce page
+
+# Features
+
+- Register
+- login
+- Admin functions (Add product, Update product, Delete product)
+- Home page (features top sold products, multimedia, brand info)
+
+# Photos
 
 ## Getting Started
 

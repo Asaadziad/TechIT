@@ -5,4 +5,5 @@ export default interface User {
   password: string;
   isAdmin?: boolean;
   image?: string;
+  purchases?: number;
 }

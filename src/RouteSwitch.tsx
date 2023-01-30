@@ -2,11 +2,14 @@ import { FunctionComponent, useState } from "react";
 import { Route, Routes } from "react-router";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import AdminPanel from "./components/AdminPanel";
+
 import Cart from "./components/Cart";
 import Footer from "./components/footer/Footer";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Navbar from "./components/navbar/Navbar";
+import ProductPage from "./components/ProductPage";
 import Products from "./components/Products";
 import Profile from "./components/Profile";
 import Register from "./components/Register";
@@ -32,6 +35,7 @@ const RouteSwitch: FunctionComponent<RouteSwitchProps> = () => {
         <Navbar
           isLoggedIn={isLoggedIn}
           setIsLoggedIn={setIsLoggedIn}
+          isAdmin={isAdmin}
           cartItems={cartItems}
           setCartItems={setCartItems}
         />
@@ -47,7 +51,10 @@ const RouteSwitch: FunctionComponent<RouteSwitchProps> = () => {
             path="/register"
             element={<Register setIsLoggedIn={setIsLoggedIn} />}
           />
-          <Route path="/products" element={<Products isAdmin={isAdmin} />} />
+          <Route path="/products">
+            <Route index element={<Products isAdmin={isAdmin} />} />
+            <Route path=":id" element={<ProductPage />} />
+          </Route>
           <Route
             path="/cart"
             element={
@@ -55,6 +62,7 @@ const RouteSwitch: FunctionComponent<RouteSwitchProps> = () => {
             }
           />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/admin" element={<AdminPanel isAdmin={isAdmin} />} />
         </Routes>
         <Footer />
       </BrowserRouter>

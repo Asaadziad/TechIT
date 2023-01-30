@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./navbar.css";
 interface NavbarProps {
@@ -7,6 +7,7 @@ interface NavbarProps {
   setIsLoggedIn: Function;
   cartItems: number;
   setCartItems: Function;
+  isAdmin: boolean;
 }
 
 const Navbar: FunctionComponent<NavbarProps> = ({
@@ -14,6 +15,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({
   setIsLoggedIn,
   cartItems,
   setCartItems,
+  isAdmin,
 }) => {
   let navigate = useNavigate();
   let getCart = async () => {
@@ -26,8 +28,8 @@ const Navbar: FunctionComponent<NavbarProps> = ({
         `${process.env.REACT_APP_API}/carts?userId=${userId}`
       );
       // get user cart (products numbers array)
-      let productsNum = cartRes.data[0].products.length;
-      console.log(productsNum);
+      let productsNum = cartRes.data.legnth ? cartRes.data[0].length : 0;
+
       setCartItems(productsNum);
     } catch (error) {
       console.log(error);
@@ -39,7 +41,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({
   }, [isLoggedIn]);
   return (
     <>
-      <nav className="navbar navbar-dark navbar-expand-lg bg-dark">
+      <nav className="navbar navbar-light navbar-expand-lg bg-light">
         <div className="container-fluid">
           <NavLink className="navbar-brand" to="/home">
             TechIT
@@ -68,9 +70,16 @@ const Navbar: FunctionComponent<NavbarProps> = ({
                   Profile
                 </NavLink>
               </li>
+              {isAdmin && (
+                <li className="nav-item">
+                  <NavLink className="nav-link text-warning" to="/admin">
+                    Admin Panel
+                  </NavLink>
+                </li>
+              )}
             </ul>
             {isLoggedIn && (
-              <div className="d-flex text-light">
+              <div className="d-flex text-dark">
                 <NavLink className="nav-link me-3" to="/cart">
                   <span className="cart">
                     <span className="cart-icon">

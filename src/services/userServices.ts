@@ -11,6 +11,10 @@ export function checkUser(user: User) {
 export function getUserById(userId: number) {
   return axios.get(`${usersApi}/${userId}`);
 }
+//get all users
+export function getAllUsers() {
+  return axios.get(`${usersApi}`);
+}
 //add user - register
 export function addUser(user: User) {
   return axios.post(usersApi, user);
