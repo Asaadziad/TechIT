@@ -1,22 +1,14 @@
 import axios from "axios";
-import { FunctionComponent, useEffect } from "react";
+import { FunctionComponent, useContext, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { UserContext } from "../../hooks/context/UserContext";
+import Product from "../../interfaces/Product";
 import "./navbar.css";
-interface NavbarProps {
-  isLoggedIn: boolean;
-  setIsLoggedIn: Function;
-  cartItems: number;
-  setCartItems: Function;
-  isAdmin: boolean;
-}
 
-const Navbar: FunctionComponent<NavbarProps> = ({
-  isLoggedIn,
-  setIsLoggedIn,
-  cartItems,
-  setCartItems,
-  isAdmin,
-}) => {
+interface NavbarProps {}
+
+const Navbar: FunctionComponent<NavbarProps> = () => {
+  let userContext = useContext(UserContext);
   let navigate = useNavigate();
   let getCart = async () => {
     try {
@@ -24,13 +16,23 @@ const Navbar: FunctionComponent<NavbarProps> = ({
       let userId: number = JSON.parse(
         sessionStorage.getItem("userData") as string
       ).userId;
+      let products: Product[] = [];
+      // get user cart (response object) according to his userId
       let cartRes = await axios.get(
         `${process.env.REACT_APP_API}/carts?userId=${userId}`
       );
-      // get user cart (products numbers array)
-      let productsNum = cartRes.data.legnth ? cartRes.data[0].length : 0;
 
-      setCartItems(productsNum);
+      // get user cart (products numbers array)
+      let productsIds: number[] = cartRes.data[0].products;
+      for (let id of productsIds) {
+        let productRes = await axios.get(
+          `http://localhost:8000/products/${id}`
+        );
+        products.push(productRes.data);
+      }
+      // get user cart (products numbers array)
+      let productsNum = products.length;
+      userContext.setCartItems(productsNum);
     } catch (error) {
       console.log(error);
     }
@@ -38,12 +40,12 @@ const Navbar: FunctionComponent<NavbarProps> = ({
 
   useEffect(() => {
     getCart();
-  }, [isLoggedIn]);
+  }, [userContext.isLoggedIn, userContext.cartItems]);
   return (
     <>
       <nav className="navbar navbar-light navbar-expand-lg bg-light">
-        <div className="container-fluid">
-          <NavLink className="navbar-brand" to="/home">
+        <div className="container">
+          <NavLink className="navbar-brand logo" to="/home">
             TechIT
           </NavLink>
           <button
@@ -70,7 +72,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({
                   Profile
                 </NavLink>
               </li>
-              {isAdmin && (
+              {userContext.isAdmin && (
                 <li className="nav-item">
                   <NavLink className="nav-link text-warning" to="/admin">
                     Admin Panel
@@ -78,7 +80,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({
                 </li>
               )}
             </ul>
-            {isLoggedIn && (
+            {userContext.isLoggedIn ? (
               <div className="d-flex text-dark">
                 <NavLink className="nav-link me-3" to="/cart">
                   <span className="cart">
@@ -87,23 +89,35 @@ const Navbar: FunctionComponent<NavbarProps> = ({
                     </span>
 
                     <span className="cart-text">Cart</span>
-                    <span className="cart-quantity ms-3 p-1">{cartItems}</span>
+                    <span className="cart-quantity ms-3 p-1">
+                      {userContext.cartItems}
+                    </span>
                   </span>
                 </NavLink>
 
                 <button
                   className="btn btn-outline-danger"
                   onClick={() => {
-                    setIsLoggedIn(false);
+                    userContext.setIsLoggedIn(false);
+                    userContext.setIsAdmin(false);
                     sessionStorage.setItem(
                       "userData",
                       JSON.stringify({ isLoggedIn: false, isAdmin: false })
                     );
-                    setCartItems(0);
+                    userContext.setCartItems(0);
                     navigate("/");
                   }}
                 >
                   Logout
+                </button>
+              </div>
+            ) : (
+              <div className="d-flex">
+                <button
+                  className="btn btn-outline-primary"
+                  onClick={() => navigate("/")}
+                >
+                  Login
                 </button>
               </div>
             )}

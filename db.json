@@ -88,7 +88,16 @@
     {
       "id": 1,
       "userId": 3,
-      "products": [1, 2, 1, 5],
+      "products": [
+        1,
+        2,
+        1,
+        5,
+        2,
+        3,
+        5,
+        2
+      ],
       "active": true
     }
   ]

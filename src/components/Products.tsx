@@ -1,4 +1,5 @@
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useContext, useEffect, useState } from "react";
+import { UserContext } from "../hooks/context/UserContext";
 import { sendSuccessMessage } from "../interfaces/feedBack";
 import Product from "../interfaces/Product";
 import { addProductToCart } from "../services/cartServices";
@@ -6,11 +7,10 @@ import { deleteProduct, getProducts } from "../services/productsService";
 import AddProduct from "./modals/AddProduct";
 import UpdateProduct from "./modals/UpdateProduct";
 
-interface ProductsProps {
-  isAdmin: boolean;
-}
+interface ProductsProps {}
 
-const Products: FunctionComponent<ProductsProps> = ({ isAdmin }) => {
+const Products: FunctionComponent<ProductsProps> = () => {
+  let userContext = useContext(UserContext);
   let [products, setProducts] = useState<Product[]>([]);
   let [openAddModal, setOpenAddModal] = useState<boolean>(false);
   let [openUpdateModal, setOpenUpdateModal] = useState<boolean>(false);
@@ -22,6 +22,7 @@ const Products: FunctionComponent<ProductsProps> = ({ isAdmin }) => {
       .catch((err) => console.log(err));
   }, [productsChanged]);
   let handleAddProduct = () => {
+    userContext.setCartItems(userContext.cartItems + 1);
     setOpenAddModal(true);
   };
   let handleUpdateProduct = (productId: number) => {
@@ -30,7 +31,10 @@ const Products: FunctionComponent<ProductsProps> = ({ isAdmin }) => {
   };
   let handleAddToCart = (productId: number) => {
     addProductToCart(productId)
-      .then(() => sendSuccessMessage("Added to cart successfully"))
+      .then(() => {
+        sendSuccessMessage("Added to cart successfully");
+        userContext.setCartItems(userContext.cartItems + 1);
+      })
       .catch((err) => console.log(err));
   };
   let refresh = () => {
@@ -40,7 +44,7 @@ const Products: FunctionComponent<ProductsProps> = ({ isAdmin }) => {
     <>
       <div className="container bg-light">
         <div className="container mt-md-5 pt-5">
-          {isAdmin && (
+          {userContext.isAdmin && (
             <button
               className="btn btn-success"
               onClick={() => handleAddProduct()}
@@ -56,6 +60,7 @@ const Products: FunctionComponent<ProductsProps> = ({ isAdmin }) => {
                     className="card m-1 col-md-4"
                     style={{
                       width: "18rem",
+                      padding: "0",
                     }}
                     key={item.id}
                   >
@@ -65,7 +70,7 @@ const Products: FunctionComponent<ProductsProps> = ({ isAdmin }) => {
                     </div>
 
                     <div className="card-body">
-                      <h5 className="card-title">{item.name}</h5>
+                      <h5 className="card-title bold">{item.name}</h5>
                       <p className="card-text">{item.description}</p>
                       <p className="text-success">{item.price}</p>
                       <button
@@ -75,7 +80,7 @@ const Products: FunctionComponent<ProductsProps> = ({ isAdmin }) => {
                         <i className="fa-solid fa-cart-shopping me-3"></i>Add to
                         cart
                       </button>
-                      {isAdmin && (
+                      {userContext.isAdmin && (
                         <>
                           <button
                             className="btn btn-warning ms-1"

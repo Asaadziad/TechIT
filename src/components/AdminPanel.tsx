@@ -1,13 +1,13 @@
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useContext, useEffect, useState } from "react";
+import { UserContext } from "../hooks/context/UserContext";
 import User from "../interfaces/User";
 import { getUserById } from "../services/userServices";
 import CRM from "./CRM/CRM";
 
-interface AdminPanelProps {
-  isAdmin: boolean;
-}
+interface AdminPanelProps {}
 
-const AdminPanel: FunctionComponent<AdminPanelProps> = ({ isAdmin }) => {
+const AdminPanel: FunctionComponent<AdminPanelProps> = () => {
+  let userContext = useContext(UserContext);
   let [user, setUser] = useState<User>();
   useEffect(() => {
     let userId = JSON.parse(
@@ -19,7 +19,7 @@ const AdminPanel: FunctionComponent<AdminPanelProps> = ({ isAdmin }) => {
   }, []);
   return (
     <>
-      {isAdmin ? (
+      {userContext.isAdmin ? (
         <>
           <div className="container bg-light h-100 py-5">
             <h2 className="pt-5">Welcome back, {user?.name}</h2>

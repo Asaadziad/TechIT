@@ -1,6 +1,4 @@
 footer {
-  height: 5rem;
-
   border-top: 1px solid rgba(13, 13, 13, 0.2);
 }
 footer .container {
@@ -8,6 +6,8 @@ footer .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-bottom: 1.5rem;
+  padding-top: 1.5rem;
 }
 footer .container span i {
   padding: 5px;
@@ -15,4 +15,15 @@ footer .container span i {
 footer .container span i:hover {
   cursor: pointer;
   color: skyblue;
+}
+.subscribe {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  background-color: rgba(205, 219, 223, 0.3);
+}
+
+@media screen and (max-width: 750px) {
+  .subscribe {
+    display: none;
+  }
 }

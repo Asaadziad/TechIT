@@ -33,10 +33,11 @@ const TopSellers: FunctionComponent<TopSellersProps> = () => {
                 return (
                   <div className="col-md-3 my-1" key={item.id}>
                     <div
-                      className="card"
-                      style={{ width: "18rem", height: "100%" }}
+                      className="card text-danger"
+                      style={{ height: "100%" }}
                     >
                       <div className="card-header">
+                        <span>{item.category}</span>
                         <i className="fa-regular fa-heart"></i>
                       </div>
                       <div className="card-img-top">

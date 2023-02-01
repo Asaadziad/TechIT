@@ -1,16 +1,16 @@
 import { useFormik } from "formik";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import { UserContext } from "../hooks/context/UserContext";
 import { sendErrorMessage, sendSuccessMessage } from "../interfaces/feedBack";
 import User from "../interfaces/User";
 import { addUser } from "../services/userServices";
 
-interface RegisterProps {
-  setIsLoggedIn: Function;
-}
+interface RegisterProps {}
 
-const Register: FunctionComponent<RegisterProps> = ({ setIsLoggedIn }) => {
+const Register: FunctionComponent<RegisterProps> = () => {
+  let userContext = useContext(UserContext);
   let formik = useFormik({
     initialValues: { email: "", name: "", password: "" },
     validationSchema: yup.object({
@@ -30,7 +30,7 @@ const Register: FunctionComponent<RegisterProps> = ({ setIsLoggedIn }) => {
               userId: res.data[0].id,
             })
           );
-          setIsLoggedIn(true);
+          userContext.setIsLoggedIn(true);
           navigate("/");
         })
         .catch((err) => {

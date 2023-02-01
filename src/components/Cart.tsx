@@ -1,14 +1,13 @@
 import axios from "axios";
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useContext, useEffect, useState } from "react";
+import { UserContext } from "../hooks/context/UserContext";
 import Product from "../interfaces/Product";
 import { updateProduct } from "../services/productsService";
 import "./cart.css";
-interface CartProps {
-  isLoggedIn: boolean;
-  setCartItems: Function;
-}
+interface CartProps {}
 
-const Cart: FunctionComponent<CartProps> = ({ isLoggedIn, setCartItems }) => {
+const Cart: FunctionComponent<CartProps> = () => {
+  let userContext = useContext(UserContext);
   let [products, setProducts] = useState<Product[]>([]);
   let [total, setTotal] = useState<number>(0);
   let [productsChanged, setProductsChanged] = useState<boolean>(false);
@@ -44,7 +43,7 @@ const Cart: FunctionComponent<CartProps> = ({ isLoggedIn, setCartItems }) => {
         total += parseInt(item.price as any);
       }
       setTotal(total);
-      setCartItems(products.length);
+      userContext.setCartItems(products.length);
       setProducts(products);
     } catch (error) {
       console.log(error);
