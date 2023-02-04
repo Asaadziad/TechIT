@@ -14,7 +14,7 @@ footer .container span i {
 }
 footer .container span i:hover {
   cursor: pointer;
-  color: skyblue;
+  color: var(--primary);
 }
 .subscribe {
   padding-top: 1.5rem;

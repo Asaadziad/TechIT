@@ -1,0 +1,143 @@
+.product-card {
+  background-color: rgba(205, 219, 223, 0.5);
+  border: 1px solid rgb(205, 219, 223);
+  width: 18rem;
+  border-radius: 0.25rem;
+
+  position: relative;
+  font-family: "Open Sans", sans-serif;
+}
+.dark {
+  background-color: rgb(51, 45, 45, 0.2);
+  border: 1px solid var(--primary);
+}
+.product-card .fav {
+  position: absolute;
+  right: 10px;
+  z-index: 1;
+}
+.product-card .img-top img {
+  width: 100%;
+  height: 100%;
+}
+.product-card .img-top {
+  position: relative;
+  height: 300px;
+}
+.product-card .img-top.onsale::before {
+  content: "onsale";
+  position: absolute;
+  text-transform: uppercase;
+  font-size: x-small;
+  letter-spacing: 0.3em;
+  color: rgb(242, 242, 242);
+  font-weight: bolder;
+  padding: 5px;
+  top: 10px;
+  border-top-right-radius: 18px;
+  border-bottom-right-radius: 18px;
+  background: rgb(205, 219, 223);
+  background: linear-gradient(
+    90deg,
+    rgba(205, 219, 223, 1) 1%,
+    rgba(187, 13, 13, 1) 14%
+  );
+}
+.product-card .img-top img:hover {
+  cursor: pointer;
+}
+.product-card .product-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1em;
+  padding: 5px;
+}
+.product-card .product-info .product-name {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.product-card .product-info .product-price.onsale {
+  text-decoration: line-through;
+}
+.price {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.actions.admin {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn.btn-primary.addToCart {
+  background-color: transparent;
+  color: black;
+  border-radius: 1.5rem;
+}
+.rating {
+  color: gold;
+}
+.hidden {
+  display: none;
+}
+/* GENERAL BUTTON STYLING */
+button.btn.addToCart,
+button.btn.addToCart::after {
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+button.btn.addToCart {
+  background: none;
+  border: 3px solid var(--primary);
+  border-radius: 5px;
+  color: var(--primary);
+  display: block;
+  font-weight: bold;
+  padding: 5px;
+  margin: 1em auto;
+  position: relative;
+  text-transform: uppercase;
+  z-index: 1;
+}
+
+button.btn.addToCart::before,
+button.btn.addToCart::after {
+  background: var(--primary);
+  content: "";
+  position: absolute;
+  z-index: -1;
+}
+
+button.btn.addToCart:hover {
+  color: #fff;
+}
+.btn-5 {
+  overflow: hidden;
+}
+.btn-5::after {
+  /*background-color: #f00;*/
+  height: 100%;
+  left: -50%;
+  top: 0;
+  transform: skew(50deg);
+  transition-duration: 0.6s;
+  transform-origin: top left;
+  width: 0;
+}
+
+.btn-5:hover:after {
+  height: 100%;
+  width: 150%;
+}

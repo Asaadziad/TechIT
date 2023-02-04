@@ -3,11 +3,14 @@ import { FunctionComponent, useContext, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { UserContext } from "../../hooks/context/UserContext";
 import Product from "../../interfaces/Product";
+import Switch from "react-switch";
+import { ThemeContext } from "../../hooks/context/ThemeContext";
 import "./navbar.css";
 
 interface NavbarProps {}
 
 const Navbar: FunctionComponent<NavbarProps> = () => {
+  const themeContext = useContext(ThemeContext);
   let userContext = useContext(UserContext);
   let navigate = useNavigate();
   let getCart = async () => {
@@ -16,20 +19,15 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
       let userId: number = JSON.parse(
         sessionStorage.getItem("userData") as string
       ).userId;
-      let products: Product[] = [];
+
       // get user cart (response object) according to his userId
       let cartRes = await axios.get(
         `${process.env.REACT_APP_API}/carts?userId=${userId}`
       );
 
       // get user cart (products numbers array)
-      let productsIds: number[] = cartRes.data[0].products;
-      for (let id of productsIds) {
-        let productRes = await axios.get(
-          `http://localhost:8000/products/${id}`
-        );
-        products.push(productRes.data);
-      }
+      let products: Product[] = cartRes.data[0].products;
+
       // get user cart (products numbers array)
       let productsNum = products.length;
       userContext.setCartItems(productsNum);
@@ -43,7 +41,11 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
   }, [userContext.isLoggedIn, userContext.cartItems]);
   return (
     <>
-      <nav className="navbar navbar-light navbar-expand-lg bg-light">
+      <nav
+        className={`navbar navbar-${
+          themeContext.isLight ? "light" : "dark"
+        } navbar-expand-lg bg-${themeContext.isLight ? "light" : "dark"}`}
+      >
         <div className="container">
           <NavLink className="navbar-brand logo" to="/home">
             TechIT
@@ -80,12 +82,33 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 </li>
               )}
             </ul>
+            <Switch
+              className="darkmode-switch"
+              onChange={() => themeContext.setIsLight(!themeContext.isLight)}
+              checked={themeContext.isLight}
+              checkedHandleIcon={
+                <i
+                  className="fa-solid fa-sun fa-lg ms-1"
+                  style={{ color: "gold" }}
+                ></i>
+              }
+              uncheckedHandleIcon={
+                <i
+                  className="fa-solid fa-moon fa-lg ms-1"
+                  style={{ color: "#a855f7" }}
+                ></i>
+              }
+              offColor={`#a855f7`}
+              onColor={"#c5bebe"}
+              checkedIcon={false}
+              uncheckedIcon={false}
+            />
             {userContext.isLoggedIn ? (
-              <div className="d-flex text-dark">
-                <NavLink className="nav-link me-3" to="/cart">
+              <div className="d-flex justify-content-md-center align-content-md-center text-dark">
+                <NavLink className="btn btn-primary mx-2" to="/cart">
                   <span className="cart">
                     <span className="cart-icon">
-                      <i className="fa-solid fa-cart-shopping me-3 my-3"></i>
+                      <i className="fa-solid fa-cart-shopping me-3 my-1"></i>
                     </span>
 
                     <span className="cart-text">Cart</span>
@@ -96,7 +119,12 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 </NavLink>
 
                 <button
-                  className="btn btn-outline-danger"
+                  className={`btn btn-outline-danger`}
+                  style={
+                    themeContext.isLight
+                      ? {}
+                      : { backgroundColor: "rgba(220, 76, 100,0.1)" }
+                  }
                   onClick={() => {
                     userContext.setIsLoggedIn(false);
                     userContext.setIsAdmin(false);

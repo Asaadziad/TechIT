@@ -9,6 +9,10 @@ export function getProducts() {
   return axios.get(api);
 }
 
+//get all by Category
+export function getProductsByCategory(category: string) {
+  return axios.get(`${api}?category=${category}`);
+}
 //get products by id
 export function getProductById(productId: number) {
   return axios.get(`${api}/${productId}`);

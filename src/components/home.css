@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Merriweather:ital@1&family=Oswald:wght@200&display=swap");
 .banner {
-  background-image: url("./images/banner2.jpg");
+  background-image: url("./images/banner3.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;

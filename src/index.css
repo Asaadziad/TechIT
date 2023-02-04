@@ -1,8 +1,25 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=Lato:wght@300&family=Poppins:wght@300&family=Roboto:wght@300&display=swap");
+
+:root {
+  --primary: #a855f7;
+}
+
 body {
-  background-color: #cddbdf;
+  background-color: var(--primary);
   font-family: "Lato", sans-serif;
+}
+
+.btn.btn-primary {
+  background-color: var(--primary);
+  border: 1px solid var(--primary);
+}
+.btn.btn-primary:hover {
+  box-shadow: 0 0 10px var(--primary);
+}
+.btn.btn-primary:focus {
+  background-color: var(--primary);
+  border: 1px solid var(--primary);
 }
 
 .card .card-img-top {
@@ -33,9 +50,7 @@ body {
 .card-header i:hover {
   cursor: pointer;
 }
-.card {
-  font-family: "Roboto", sans-serif;
-}
+
 .logo {
   font-family: "Cinzel", serif;
 }
@@ -44,4 +59,42 @@ nav {
 }
 .bold {
   font-weight: bold;
+}
+
+img:hover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100px;
+  width: 70px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: skewX(-30deg);
+  animation-name: slide;
+  animation-duration: 7s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 0.3s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.13) 0%,
+    rgba(255, 255, 255, 0.13) 77%,
+    rgba(255, 255, 255, 0.5) 92%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+@keyframes slide {
+  0% {
+    left: -100;
+    top: 0;
+  }
+  50% {
+    left: 120px;
+    top: 0px;
+  }
+  100% {
+    left: 290px;
+    top: 0;
+  }
 }

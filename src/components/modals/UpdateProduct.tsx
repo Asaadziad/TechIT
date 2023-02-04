@@ -33,6 +33,7 @@ const UpdateProduct: FunctionComponent<UpdateProductProps> = ({
     description: "",
     image: "",
     purchases: 0,
+    quantity: 1,
   });
   let formik = useFormik({
     initialValues: {
@@ -42,6 +43,7 @@ const UpdateProduct: FunctionComponent<UpdateProductProps> = ({
       description: product.description,
       image: product.image,
       purchases: product.purchases,
+      quantity: product.quantity,
     },
     enableReinitialize: true,
     validationSchema: yup.object({

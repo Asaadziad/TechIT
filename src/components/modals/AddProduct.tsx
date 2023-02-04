@@ -27,6 +27,7 @@ const AddProduct: FunctionComponent<AddProductProps> = ({
       description: "",
       image: "",
       purchases: 0,
+      quantity: 1,
     },
     validationSchema: yup.object({
       name: yup.string().required(),

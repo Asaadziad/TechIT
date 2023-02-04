@@ -1,9 +1,10 @@
 import axios from "axios";
+import Product from "../interfaces/Product";
 
 const api: string = process.env.REACT_APP_API + "/carts" || "";
 
-export async function addProductToCart(productId: number) {
-  let products: number[] = [];
+export async function addProductToCart(product: Product) {
+  let products: Product[] = [];
   let userId: number = JSON.parse(
     sessionStorage.getItem("userData") as string
   )?.userId;
@@ -13,7 +14,24 @@ export async function addProductToCart(productId: number) {
       cartId = res.data[0].id;
       products = res.data[0].products;
     });
-    products.push(productId);
+    if (
+      products.filter((item) => {
+        return item.id === product.id;
+      }).length
+    ) {
+      console.log("i was here");
+
+      products[
+        products.indexOf(
+          products.filter((item) => {
+            return item.id === product.id;
+          })[0]
+        )
+      ].quantity++;
+    } else {
+      products.push(product);
+    }
+
     return axios.patch(`${api}/${cartId}`, { products: products });
   } catch (error) {
     console.log(error);

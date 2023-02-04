@@ -1,11 +1,15 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
+import { ThemeContext } from "../../hooks/context/ThemeContext";
 import "./footer.css";
 import Subscribe from "./Subscribe";
 interface FooterProps {}
 
 const Footer: FunctionComponent<FooterProps> = () => {
+  const themeContext = useContext(ThemeContext);
   return (
-    <footer className="bg-light">
+    <footer
+      className={`bg-${themeContext.isLight ? "light" : "dark text-light"}`}
+    >
       <Subscribe />
       <div className="container">
         <span className="brand">

@@ -89,14 +89,26 @@
       "id": 1,
       "userId": 3,
       "products": [
-        1,
-        2,
-        1,
-        5,
-        2,
-        3,
-        5,
-        2
+        {
+          "id": 1,
+          "name": "Microsoft Earphones",
+          "price": 80,
+          "category": "Earphones & Headphones",
+          "description": "The Microsoft new earphones with high quality",
+          "image": "https://rukminim1.flixcart.com/image/416/416/k0flmkw0/headphone/u/2/h/queer-original-nokia-microsoft-wh-108-wired-headset-black-original-imafk8c6pjy2rhax.jpeg?q=70",
+          "quantity": 3,
+          "purchases": 0
+        },
+        {
+          "name": "Microsoft Headphones",
+          "category": "Laptops & Personal Computers",
+          "price": "180",
+          "description": "The Microsoft new headphones with high quality",
+          "image": "https://bstore.bezeq.co.il/media/50245/asus-vivobook-asusx1500ea.jpg",
+          "purchases": 3,
+          "id": 3,
+          "quantity": null
+        }
       ],
       "active": true
     }

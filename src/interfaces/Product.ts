@@ -5,6 +5,6 @@ export default interface Product {
   category: string;
   description: string;
   image: string;
-  quantity?: number;
+  quantity: number;
   purchases: number;
 }

@@ -24,23 +24,21 @@ const Cart: FunctionComponent<CartProps> = () => {
       let userId: number = JSON.parse(
         sessionStorage.getItem("userData") as string
       ).userId;
-      let products: Product[] = [];
+
       // get user cart (response object) according to his userId
       let cartRes = await axios.get(
         `${process.env.REACT_APP_API}/carts?userId=${userId}`
       );
 
       // get user cart (products numbers array)
-      let productsIds: number[] = cartRes.data[0].products;
-      for (let id of productsIds) {
-        let productRes = await axios.get(
-          `http://localhost:8000/products/${id}`
-        );
-        products.push(productRes.data);
-      }
+      let products: Product[] = cartRes.data[0].products;
+
       let total = 0;
       for (let item of products) {
-        total += parseInt(item.price as any);
+        console.log(item);
+        total += parseInt(
+          (item.price * (item.quantity > 0 ? item.quantity : 1)) as any
+        );
       }
       setTotal(total);
       userContext.setCartItems(products.length);
@@ -69,7 +67,7 @@ const Cart: FunctionComponent<CartProps> = () => {
               {products.length ? (
                 products.map((item: Product) => {
                   return (
-                    <div className="itemCard">
+                    <div className="itemCard" key={item.id}>
                       <img
                         src={item.image}
                         alt={item.name}

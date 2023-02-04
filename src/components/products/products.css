@@ -1,0 +1,32 @@
+.card {
+  transition: box-shadow 0.5s ease-in-out;
+}
+.products .card:hover {
+  box-shadow: 0 0 10px black;
+}
+.products .card .card-img-top:hover {
+  cursor: pointer;
+}
+.card .card-img-top {
+  position: relative;
+}
+
+.card .card-img-top .addToCart {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
+  z-index: 100;
+  padding: 7px;
+  opacity: 0;
+}
+.card:hover .card-img-top .addToCart {
+  opacity: 1;
+}
+.card .card-img-top .addToCart button {
+  background-color: rgb(13, 13, 13);
+  border: 1px solid rgb(13, 13, 13);
+}
+.card .card-img-top .addToCart button:hover {
+  box-shadow: 0 0 10px rgb(13, 13, 13);
+}
