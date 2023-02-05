@@ -7,4 +7,6 @@ export default interface Product {
   image: string;
   quantity: number;
   purchases: number;
+  rating?: number;
+  onsale?: boolean;
 }

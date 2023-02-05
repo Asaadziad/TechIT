@@ -3,5 +3,83 @@ nav.navbar {
   top: 0;
   z-index: 100;
   width: 100%;
-  filter: drop-shadow(3px 3px 3px var(--primary));
+  filter: drop-shadow(1px 1px 3px var(--primary));
+}
+.cartDropDown {
+  position: relative;
+  display: inline-block;
+}
+@media screen and (min-width: 750px) {
+  .cartDropDown:hover .dropdown-cart {
+    animation: showTopDown 2s;
+    display: block;
+  }
+}
+
+.cartNew {
+  position: absolute;
+  top: -8px;
+  left: -10px;
+  background-color: #dc4c64;
+  min-width: 20px;
+  border-radius: 50%;
+}
+.dropdown-cart {
+  display: none;
+  position: absolute;
+  left: -150%;
+  top: 110%;
+  z-index: 1;
+  width: 400px;
+  min-height: 300px;
+  margin-left: 0;
+  padding-left: 0;
+}
+.navCart {
+  width: 100%;
+}
+.cart-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1px;
+  height: 100px;
+  gap: 5px;
+}
+.cart-card.product-img {
+  width: 25%;
+  height: 100%;
+}
+.cart-card.product-delete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 15%;
+  height: 100%;
+}
+.cart-card.product-delete i:hover {
+  cursor: pointer;
+  color: #dc4c64;
+}
+.cart-card.product-info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  width: 60%;
+}
+.quantity {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0;
+  margin-left: 5px;
+  width: 100px;
+  border: 1px solid rgba(242, 242, 242, 0.8);
+}
+.quantity i:hover {
+  cursor: pointer;
 }

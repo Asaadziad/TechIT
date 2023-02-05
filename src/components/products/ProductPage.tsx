@@ -1,10 +1,7 @@
 import { FunctionComponent, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { UserContext } from "../../hooks/context/UserContext";
-import {
-  sendErrorMessage,
-  sendSuccessMessage,
-} from "../../interfaces/feedBack";
+import { sendErrorMessage, sendSuccessMessage } from "../../services/feedBack";
 import Product from "../../interfaces/Product";
 import { addProductToCart } from "../../services/cartServices";
 import { getProductById } from "../../services/productsService";

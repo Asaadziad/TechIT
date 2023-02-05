@@ -1,5 +1,6 @@
 import axios from "axios";
 import Product from "../interfaces/Product";
+import { sendErrorMessage } from "./feedBack";
 
 const api: string = process.env.REACT_APP_API + "/carts" || "";
 
@@ -32,6 +33,27 @@ export async function addProductToCart(product: Product) {
       products.push(product);
     }
 
+    return axios.patch(`${api}/${cartId}`, { products: products });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+//deletes a product from user cart
+export async function deleteFromCartById(productId: number) {
+  let products: Product[] = [];
+  let userId: number = JSON.parse(
+    sessionStorage.getItem("userData") as string
+  )?.userId;
+  let cartId = 0;
+  try {
+    await axios.get(`${api}?userId=${userId}`).then((res) => {
+      cartId = res.data[0].id;
+      products = res.data[0].products;
+    });
+    products = products.filter((item) => {
+      return item.id !== productId;
+    });
     return axios.patch(`${api}/${cartId}`, { products: products });
   } catch (error) {
     console.log(error);

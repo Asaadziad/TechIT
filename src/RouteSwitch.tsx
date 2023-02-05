@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
 import { Route, Routes } from "react-router";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -14,12 +14,16 @@ import ProductPage from "./components/products/ProductPage";
 import Products from "./components/products/Products";
 import Profile from "./components/profile/Profile";
 import Register from "./components/Register";
-import { ThemeContextProvider } from "./hooks/context/ThemeContext";
+import {
+  ThemeContext,
+  ThemeContextProvider,
+} from "./hooks/context/ThemeContext";
 import { UserContextProvider } from "./hooks/context/UserContext";
 
 interface RouteSwitchProps {}
 
 const RouteSwitch: FunctionComponent<RouteSwitchProps> = () => {
+  let themeContext = useContext(ThemeContext);
   return (
     <>
       <BrowserRouter>
@@ -39,10 +43,10 @@ const RouteSwitch: FunctionComponent<RouteSwitchProps> = () => {
               <Route path="/admin" element={<AdminPanel />} />
             </Routes>
             <Footer />
+            <ToastContainer theme={themeContext.isLight ? "light" : "dark"} />
           </UserContextProvider>
         </ThemeContextProvider>
       </BrowserRouter>
-      <ToastContainer />
     </>
   );
 };

@@ -15,6 +15,7 @@ const CRM: FunctionComponent<CRMProps> = ({ customers }) => {
             <th scope="col">Name</th>
             <th scope="col">Email</th>
             <th scope="col">Purchases</th>
+            <th scope="col">Total spent</th>
             <th scope="col"></th>
             <th scope="col"></th>
           </tr>
@@ -27,6 +28,7 @@ const CRM: FunctionComponent<CRMProps> = ({ customers }) => {
                   <th scope="row">{item.id}</th>
                   <td>{item.name}</td>
                   <td>{item.email}</td>
+                  <td>0</td>
                   <td>0</td>
                   <td>
                     <i className="fa-solid fa-pen"></i>

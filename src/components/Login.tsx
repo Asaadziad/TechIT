@@ -2,8 +2,9 @@ import { useFormik } from "formik";
 import { FunctionComponent, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import { ThemeContext } from "../hooks/context/ThemeContext";
 import { UserContext } from "../hooks/context/UserContext";
-import { sendErrorMessage, sendSuccessMessage } from "../interfaces/feedBack";
+import { sendErrorMessage, sendSuccessMessage } from "../services/feedBack";
 import User from "../interfaces/User";
 import { checkUser } from "../services/userServices";
 
@@ -42,10 +43,15 @@ const Login: FunctionComponent<LoginProps> = () => {
     },
   });
   let navigate = useNavigate();
+  let themeContext = useContext(ThemeContext);
   return (
     <>
-      <div className="container bg-light py-5">
-        <div className="container col-md-6 d-flex flex-column justify-content-center align-items-center">
+      <div
+        className={`container bg-${
+          themeContext.isLight ? "light" : "dark text-light"
+        } py-5`}
+      >
+        <div className="container mt-5 col-md-6 d-flex flex-column justify-content-center align-items-center">
           <h3 className="display-3">Login</h3>
           <form onSubmit={formik.handleSubmit}>
             <div className="form-group">

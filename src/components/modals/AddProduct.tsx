@@ -5,7 +5,7 @@ import { Button, Modal } from "react-bootstrap";
 import { Category } from "../../interfaces/Category";
 import { addProduct, getCategories } from "../../services/productsService";
 import Product from "../../interfaces/Product";
-import { sendSuccessMessage } from "../../interfaces/feedBack";
+import { sendSuccessMessage } from "../../services/feedBack";
 
 interface AddProductProps {
   show: boolean;

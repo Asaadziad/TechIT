@@ -3,7 +3,7 @@ import { FunctionComponent, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { UserContext } from "../hooks/context/UserContext";
-import { sendErrorMessage, sendSuccessMessage } from "../interfaces/feedBack";
+import { sendErrorMessage, sendSuccessMessage } from "../services/feedBack";
 import User from "../interfaces/User";
 import { addUser } from "../services/userServices";
 

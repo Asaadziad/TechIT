@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import Product from "../../interfaces/Product";
 
 interface UserContextType {
   isLoggedIn: boolean;
@@ -7,6 +8,8 @@ interface UserContextType {
   setIsAdmin: Function;
   cartItems: number;
   setCartItems: Function;
+  cartProducts: Product[];
+  setCartProducts: Function;
 }
 
 export const UserContext = createContext({} as UserContextType);
@@ -25,6 +28,7 @@ export const UserContextProvider = ({ children }: any) => {
   );
 
   const [cartItems, setCartItems] = useState<number>(0);
+  const [cartProducts, setCartProducts] = useState<Product[]>([]);
   return (
     <UserContext.Provider
       value={{
@@ -34,6 +38,8 @@ export const UserContextProvider = ({ children }: any) => {
         setIsAdmin,
         cartItems,
         setCartItems,
+        cartProducts,
+        setCartProducts,
       }}
     >
       {children}

@@ -1,11 +1,12 @@
 import { FunctionComponent, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 import { ThemeContext } from "../../hooks/context/ThemeContext";
 import { UserContext } from "../../hooks/context/UserContext";
-import { sendSuccessMessage } from "../../interfaces/feedBack";
+import { sendSuccessMessage } from "../../services/feedBack";
 import Product from "../../interfaces/Product";
 import { addProductToCart } from "../../services/cartServices";
-import { deleteProduct, getProducts } from "../../services/productsService";
+import { getProducts } from "../../services/productsService";
 import AddProduct from "../modals/AddProduct";
 import UpdateProduct from "../modals/UpdateProduct";
 import ProductCard from "./ProductCard";
@@ -24,11 +25,12 @@ const Products: FunctionComponent<ProductsProps> = () => {
   let navigate = useNavigate();
   useEffect(() => {
     getProducts()
-      .then((res) => setProducts(res.data))
+      .then((res) => {
+        setProducts(res.data);
+      })
       .catch((err) => console.log(err));
   }, [productsChanged]);
   let handleAddProduct = () => {
-    userContext.setCartItems(userContext.cartItems + 1);
     setOpenAddModal(true);
   };
   let handleUpdateProduct = (productId: number) => {
@@ -36,6 +38,8 @@ const Products: FunctionComponent<ProductsProps> = () => {
     setProductId(productId);
   };
   let handleAddToCart = (product: Product) => {
+    if (!userContext.isLoggedIn) navigate("/login");
+
     addProductToCart(product)
       .then(() => {
         sendSuccessMessage("Added to cart successfully");
@@ -67,12 +71,23 @@ const Products: FunctionComponent<ProductsProps> = () => {
               products.map((item) => {
                 return (
                   <>
-                    <ProductCard product={item} />
+                    <ProductCard
+                      product={item}
+                      addProductToCart={handleAddToCart}
+                    />
                   </>
                 );
               })
             ) : (
-              <p>no products</p>
+              <div className="container d-flex justify-content-center align-content-center">
+                <ClipLoader
+                  color={"#a855f7"}
+                  loading={true}
+                  size={150}
+                  aria-label="Loading Spinner"
+                  data-testid="loader"
+                />
+              </div>
             )}
           </div>
         </div>

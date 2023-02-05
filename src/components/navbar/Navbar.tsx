@@ -6,6 +6,9 @@ import Product from "../../interfaces/Product";
 import Switch from "react-switch";
 import { ThemeContext } from "../../hooks/context/ThemeContext";
 import "./navbar.css";
+import { deleteFromCartById } from "../../services/cartServices";
+import { sendSuccessMessage } from "../../services/feedBack";
+import DropDownCart from "./DropDownCart";
 
 interface NavbarProps {}
 
@@ -31,6 +34,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
       // get user cart (products numbers array)
       let productsNum = products.length;
       userContext.setCartItems(productsNum);
+      userContext.setCartProducts(products);
     } catch (error) {
       console.log(error);
     }
@@ -68,12 +72,14 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                   Products
                 </NavLink>
               </li>
+              {userContext.isLoggedIn && (
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/profile">
+                    Profile
+                  </NavLink>
+                </li>
+              )}
 
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/profile">
-                  Profile
-                </NavLink>
-              </li>
               {userContext.isAdmin && (
                 <li className="nav-item">
                   <NavLink className="nav-link text-warning" to="/admin">
@@ -84,7 +90,13 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
             </ul>
             <Switch
               className="darkmode-switch"
-              onChange={() => themeContext.setIsLight(!themeContext.isLight)}
+              onChange={() => {
+                themeContext.setIsLight(!themeContext.isLight);
+                localStorage.setItem(
+                  "themeIsLight",
+                  JSON.stringify(!themeContext.isLight)
+                );
+              }}
               checked={themeContext.isLight}
               checkedHandleIcon={
                 <i
@@ -104,20 +116,8 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
               uncheckedIcon={false}
             />
             {userContext.isLoggedIn ? (
-              <div className="d-flex justify-content-md-center align-content-md-center text-dark">
-                <NavLink className="btn btn-primary mx-2" to="/cart">
-                  <span className="cart">
-                    <span className="cart-icon">
-                      <i className="fa-solid fa-cart-shopping me-3 my-1"></i>
-                    </span>
-
-                    <span className="cart-text">Cart</span>
-                    <span className="cart-quantity ms-3 p-1">
-                      {userContext.cartItems}
-                    </span>
-                  </span>
-                </NavLink>
-
+              <div className="d-flex text-dark">
+                <DropDownCart />
                 <button
                   className={`btn btn-outline-danger`}
                   style={
@@ -140,7 +140,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 </button>
               </div>
             ) : (
-              <div className="d-flex">
+              <div className="d-flex ms-md-2">
                 <button
                   className="btn btn-outline-primary"
                   onClick={() => navigate("/")}
