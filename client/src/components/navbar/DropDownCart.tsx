@@ -49,16 +49,24 @@ const DropDownCart: FunctionComponent<DropDownCartProps> = () => {
                   <div className="cart-card product-info">
                     <span>{item.name}</span>
                     <span>{item.price}</span>
-                    <span className="quantity">
-                      <span className="flexbox center-all-items">
-                        <i className="fa fa-plus flex"></i>
-                      </span>
-                      <span className="flexbox center-all-items">
-                        {item.quantity ? item.quantity : 1}
+                    <span className="d-flex justify-content-between align-content-center w-100">
+                      <span className="quantity">
+                        <span className="flexbox center-all-items">
+                          <i className="fa fa-plus flex"></i>
+                        </span>
+                        <span className="flexbox center-all-items">
+                          {item.quantity ? item.quantity : 1}
+                        </span>
+
+                        <span className="flexbox center-all-items">
+                          <i className="fa fa-minus flex"></i>
+                        </span>
                       </span>
 
-                      <span className="flexbox center-all-items">
-                        <i className="fa fa-minus flex"></i>
+                      <span>
+                        {item.quantity
+                          ? item.quantity * item.price
+                          : item.price}
                       </span>
                     </span>
                   </div>
@@ -78,6 +86,7 @@ const DropDownCart: FunctionComponent<DropDownCartProps> = () => {
                 </div>
               );
             })}
+            <button className="w-100 mt-1 p-2">Checkout now</button>
           </div>
         ) : (
           <p>No items in cart</p>
