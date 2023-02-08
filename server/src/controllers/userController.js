@@ -29,6 +29,7 @@ const registerUser = async (req, res) => {
       name: username,
       email: email,
       password: hashedPassword,
+      isAdmin: false,
     });
 
     //Create use cart

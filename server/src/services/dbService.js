@@ -7,7 +7,7 @@ module.exports = () => {
   };
   mongoose.set("strictQuery", false);
   try {
-    mongoose.connect(process.server.env.DB, connectionParams);
+    mongoose.connect(process.env.DB, connectionParams);
     console.log("Connected to DB successfully");
   } catch (err) {
     console.log(err.message);

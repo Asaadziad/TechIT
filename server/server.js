@@ -16,6 +16,6 @@ app.use(express.json());
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoute);
 
-const port = process.server.env.SERVER_PORT || 6001;
+const port = process.env.SERVER_PORT || 6001;
 
 app.listen(port, () => console.log(`Server is listening on port ${port}`));

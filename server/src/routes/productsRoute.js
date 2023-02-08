@@ -5,9 +5,14 @@ const {
   updateProduct,
   addProduct,
 } = require("../controllers/productControllers");
+const { authneticate } = require("../middlewares/authMiddleware");
 const router = express.Router();
 
-router.post("/", addProduct);
-router.get("/:id", getProduct).delete(removeProduct).put(updateProduct);
+router.route("/").post(authneticate, addProduct);
+router
+  .route("/:id")
+  .get(getProduct)
+  .delete(authneticate, removeProduct)
+  .put(authneticate, updateProduct);
 
 module.exports = router;
