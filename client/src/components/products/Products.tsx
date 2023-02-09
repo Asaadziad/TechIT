@@ -7,36 +7,27 @@ import { sendSuccessMessage } from "../../services/feedBack";
 import Product from "../../interfaces/Product";
 import { addProductToCart } from "../../services/cartServices";
 import { getProducts } from "../../services/productsService";
-import AddProduct from "../modals/AddProduct";
-import UpdateProduct from "../modals/UpdateProduct";
 import ProductCard from "./ProductCard";
 import "./products.css";
+import AddProduct from "../modals/AddProduct";
 
 interface ProductsProps {}
 
 const Products: FunctionComponent<ProductsProps> = () => {
   let userContext = useContext(UserContext);
   let themeContext = useContext(ThemeContext);
-  let [products, setProducts] = useState<Product[]>([]);
-  let [openAddModal, setOpenAddModal] = useState<boolean>(false);
-  let [openUpdateModal, setOpenUpdateModal] = useState<boolean>(false);
+  let [openAddProductModal, setOpenAddProductModal] = useState<boolean>(false);
+  let [products, setProducts] = useState<any[]>([]);
   let [productsChanged, setProductsChanged] = useState<boolean>(false);
-  let [productId, setProductId] = useState<number>(0);
   let navigate = useNavigate();
   useEffect(() => {
     getProducts()
       .then((res) => {
-        setProducts(res.data);
+        setProducts(res.data.products);
       })
       .catch((err) => console.log(err));
   }, [productsChanged]);
-  let handleAddProduct = () => {
-    setOpenAddModal(true);
-  };
-  let handleUpdateProduct = (productId: number) => {
-    setOpenUpdateModal(true);
-    setProductId(productId);
-  };
+
   let handleAddToCart = (product: Product) => {
     if (!userContext.isLoggedIn) navigate("/login");
 
@@ -61,21 +52,20 @@ const Products: FunctionComponent<ProductsProps> = () => {
           {userContext.isAdmin && (
             <button
               className="btn btn-success"
-              onClick={() => handleAddProduct()}
+              onClick={() => setOpenAddProductModal(true)}
             >
               <i className="fa-solid fa-plus"></i> Add Product
             </button>
           )}
-          <div className="row mt-5 pb-5">
+          <div className="row mt-5 pb-5 d-flex justify-content-center align-content-center">
             {products.length ? (
               products.map((item) => {
                 return (
-                  <>
-                    <ProductCard
-                      product={item}
-                      addProductToCart={handleAddToCart}
-                    />
-                  </>
+                  <ProductCard
+                    key={item._id}
+                    product={item}
+                    addProductToCart={handleAddToCart}
+                  />
                 );
               })
             ) : (
@@ -91,18 +81,12 @@ const Products: FunctionComponent<ProductsProps> = () => {
             )}
           </div>
         </div>
-        <AddProduct
-          show={openAddModal}
-          onHide={() => setOpenAddModal(false)}
-          refresh={refresh}
-        />
-        <UpdateProduct
-          show={openUpdateModal}
-          onHide={() => setOpenUpdateModal(false)}
-          refresh={refresh}
-          productId={productId}
-        />
       </div>
+      <AddProduct
+        show={openAddProductModal}
+        onHide={() => setOpenAddProductModal(false)}
+        refresh={refresh}
+      />
     </>
   );
 };

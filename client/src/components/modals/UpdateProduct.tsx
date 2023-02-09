@@ -2,12 +2,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { FunctionComponent, useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import { Category } from "../../interfaces/Category";
-import {
-  getCategories,
-  getProductById,
-  updateProduct,
-} from "../../services/productsService";
+import { getProductById, updateProduct } from "../../services/productsService";
 import Product from "../../interfaces/Product";
 import { sendSuccessMessage } from "../../services/feedBack";
 
@@ -24,7 +19,6 @@ const UpdateProduct: FunctionComponent<UpdateProductProps> = ({
   refresh,
   productId,
 }) => {
-  let [categories, setCategories] = useState([]);
   let [product, setProduct] = useState<Product>({
     name: "",
     category: "",
@@ -60,9 +54,6 @@ const UpdateProduct: FunctionComponent<UpdateProductProps> = ({
     },
   });
   useEffect(() => {
-    getCategories()
-      .then((res) => setCategories(res.data))
-      .catch((err) => console.log(err));
     getProductById(productId)
       .then((res) => setProduct(res.data))
       .catch((err) => console.log(err));
@@ -99,25 +90,6 @@ const UpdateProduct: FunctionComponent<UpdateProductProps> = ({
               <p className="text-danger">{formik.errors.name}</p>
             )}
             <div className="form-floating mb-3">
-              <select
-                className="form-select"
-                id="category"
-                name="category"
-                aria-label="Floating label select example"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              >
-                <option selected hidden>
-                  {formik.values.category}
-                </option>
-                {categories.length ? (
-                  categories.map((item: Category) => {
-                    return <option value={item.name}>{item.name}</option>;
-                  })
-                ) : (
-                  <p>no categories</p>
-                )}
-              </select>
               <label htmlFor="category">Category</label>
             </div>
             {formik.touched.category && formik.errors.category && (

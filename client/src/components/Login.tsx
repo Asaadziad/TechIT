@@ -21,25 +21,29 @@ const Login: FunctionComponent<LoginProps> = () => {
     onSubmit: (user: User) => {
       checkUser(user)
         .then(async (res) => {
-          if (res.data.length) {
+          if (res.data.token) {
             sendSuccessMessage("Logged in successfully");
             sessionStorage.setItem(
               "userData",
               JSON.stringify({
                 isLoggedIn: true,
-                isAdmin: res.data[0].isAdmin,
-                userId: res.data[0].id,
+                isAdmin: res.data.isAdmin,
+                token: res.data.token,
               })
             );
 
             userContext.setIsLoggedIn(true);
-            userContext.setIsAdmin(res.data[0].isAdmin);
+            userContext.setIsAdmin(res.data.isAdmin);
             navigate("/home");
           } else {
             sendErrorMessage("Error!");
           }
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+
+          sendErrorMessage(err.response.data.message);
+        });
     },
   });
   let navigate = useNavigate();

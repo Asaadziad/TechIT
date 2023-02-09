@@ -17,13 +17,8 @@ const ProductCard: FunctionComponent<ProductCardProps> = ({
   return (
     <>
       <div className="col-md-3">
-        <div
-          className={`product-card ${!themeContext.isLight && "dark"} my-2`}
-          key={product.id}
-        >
-          <div className="img-top onsale">
-            <img src={product.image} alt="test" />
-          </div>
+        <div className={`product-card ${!themeContext.isLight && "dark"} my-2`}>
+          <div className="img-top onsale"></div>
 
           <div className="product-info">
             <span className="product-info-header">

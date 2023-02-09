@@ -4,7 +4,7 @@ const User = require("../models/userModel");
 const addProduct = async (req, res) => {
   const { name, description, price, image } = req.body;
   const user = await User.findById(req.user.id);
-  if (!name || !description || !price || !image) {
+  if (!name || !description || !price) {
     return res.status(400).json({ message: "Fill all the required data" });
   }
   if (!user.isAdmin) {
@@ -72,4 +72,15 @@ const updateProduct = async (req, res) => {
   }
 };
 
-module.exports = { addProduct, removeProduct, getProduct, updateProduct };
+const getAllProducts = async (req, res) => {
+  const products = await Product.find();
+  return res.status(200).json({ products: products });
+};
+
+module.exports = {
+  addProduct,
+  removeProduct,
+  getProduct,
+  updateProduct,
+  getAllProducts,
+};

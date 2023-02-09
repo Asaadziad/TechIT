@@ -4,11 +4,13 @@ const {
   removeProduct,
   updateProduct,
   addProduct,
+  getAllProducts,
 } = require("../controllers/productControllers");
 const { authneticate } = require("../middlewares/authMiddleware");
 const router = express.Router();
 
-router.route("/").post(authneticate, addProduct);
+router.route("/getAll").get(getAllProducts);
+router.route("/add").post(authneticate, addProduct);
 router
   .route("/:id")
   .get(getProduct)

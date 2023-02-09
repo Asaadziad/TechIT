@@ -1,9 +1,9 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useEffect } from "react";
 import { Button, Modal } from "react-bootstrap";
-import { Category } from "../../interfaces/Category";
-import { addProduct, getCategories } from "../../services/productsService";
+
+import { addProduct } from "../../services/productsService";
 import Product from "../../interfaces/Product";
 import { sendSuccessMessage } from "../../services/feedBack";
 
@@ -18,7 +18,6 @@ const AddProduct: FunctionComponent<AddProductProps> = ({
   onHide,
   refresh,
 }) => {
-  let [categories, setCategories] = useState([]);
   let formik = useFormik({
     initialValues: {
       name: "",
@@ -33,7 +32,7 @@ const AddProduct: FunctionComponent<AddProductProps> = ({
       name: yup.string().required(),
       price: yup.number().required(),
       description: yup.string().required(),
-      category: yup.string().required(),
+      category: yup.string(),
     }),
     onSubmit: (product: Product) => {
       addProduct(product)
@@ -41,15 +40,11 @@ const AddProduct: FunctionComponent<AddProductProps> = ({
           sendSuccessMessage("Added new product successfully");
         })
         .catch((err) => console.log(err));
-      onHide();
       refresh();
+      onHide();
     },
   });
-  useEffect(() => {
-    getCategories()
-      .then((res) => setCategories(res.data))
-      .catch((err) => console.log(err));
-  }, []);
+  useEffect(() => {}, []);
   return (
     <>
       <Modal
@@ -79,31 +74,6 @@ const AddProduct: FunctionComponent<AddProductProps> = ({
             </div>
             {formik.touched.name && formik.errors.name && (
               <p className="text-danger">{formik.errors.name}</p>
-            )}
-            <div className="form-floating mb-3">
-              <select
-                className="form-select"
-                id="category"
-                name="category"
-                aria-label="Floating label select example"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              >
-                <option selected hidden>
-                  Select category
-                </option>
-                {categories.length ? (
-                  categories.map((item: Category) => {
-                    return <option value={item.name}>{item.name}</option>;
-                  })
-                ) : (
-                  <p>no categories</p>
-                )}
-              </select>
-              <label htmlFor="category">Category</label>
-            </div>
-            {formik.touched.category && formik.errors.category && (
-              <p className="text-danger">{formik.errors.category}</p>
             )}
             <div className="form-floating mb-3">
               <input

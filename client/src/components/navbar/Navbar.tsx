@@ -19,7 +19,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
   let getCart = async () => {
     try {
       // get userId from sessionStorage
-      let userId: number = JSON.parse(
+      /*let userId: number = JSON.parse(
         sessionStorage.getItem("userData") as string
       ).userId;
 
@@ -34,7 +34,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
       // get user cart (products numbers array)
       let productsNum = products.length;
       userContext.setCartItems(productsNum);
-      userContext.setCartProducts(products);
+      userContext.setCartProducts(products);*/
     } catch (error) {
       console.log(error);
     }

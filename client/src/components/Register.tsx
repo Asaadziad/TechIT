@@ -27,7 +27,7 @@ const Register: FunctionComponent<RegisterProps> = () => {
             JSON.stringify({
               isLoggedIn: true,
               isAdmin: false,
-              userId: res.data[0].id,
+              token: res.data.token,
             })
           );
           userContext.setIsLoggedIn(true);

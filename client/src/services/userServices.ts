@@ -5,7 +5,10 @@ const usersApi: string = process.env.REACT_APP_API + "/users" || "";
 
 //check user - login
 export function checkUser(user: User) {
-  return axios.get(usersApi + `?email=${user.email}&password=${user.password}`);
+  return axios.post(usersApi + "/login", {
+    email: user.email,
+    password: user.password,
+  });
 }
 //get user by id
 export function getUserById(userId: number) {
@@ -17,5 +20,9 @@ export function getAllUsers() {
 }
 //add user - register
 export function addUser(user: User) {
-  return axios.post(usersApi, user);
+  return axios.post(usersApi + "/register", {
+    username: user.name,
+    email: user.email,
+    password: user.password,
+  });
 }

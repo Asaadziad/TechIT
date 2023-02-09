@@ -66,14 +66,12 @@ const loginUser = async (req, res) => {
 
   //if user exists and password is correct
   if (user && (await bcrypt.compare(password, user.password))) {
-    res.json({
-      username: user.name,
-      email: user.email,
-      password: password,
+    return res.json({
+      isAdmin: user.isAdmin,
       token: generateToken(user._id),
     });
   } else {
-    res.status(400).json({ message: "Invalid user data" });
+    return res.status(400).json({ message: "Invalid user data" });
   }
 };
 
