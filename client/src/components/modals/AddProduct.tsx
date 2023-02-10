@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { FunctionComponent, useEffect } from "react";
+import { FunctionComponent } from "react";
 import { Button, Modal } from "react-bootstrap";
 
 import { addProduct } from "../../services/productsService";
@@ -40,11 +40,12 @@ const AddProduct: FunctionComponent<AddProductProps> = ({
           sendSuccessMessage("Added new product successfully");
         })
         .catch((err) => console.log(err));
+
       refresh();
+      formik.resetForm();
       onHide();
     },
   });
-  useEffect(() => {}, []);
   return (
     <>
       <Modal
