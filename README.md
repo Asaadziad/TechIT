@@ -1,6 +1,6 @@
 # TechIT - Hi-Tech E-Commerce Site
 
-A full-stack e-commerce website specializing in hi-tech products, developed by Asaadziad, a student at HackerU College.
+A full-stack e-commerce website specializing in hi-tech products, developed by Asaadziad.
 
 ## Technologies used
 
