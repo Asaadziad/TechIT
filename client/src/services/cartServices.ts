@@ -3,6 +3,7 @@ import Product from "../interfaces/Product";
 import { sendErrorMessage } from "./feedBack";
 
 const api: string = process.env.REACT_APP_API + "/carts" || "";
+const token = JSON.parse(sessionStorage.getItem("userData") as string)?.token;
 
 export async function addProductToCart(product: Product) {
   let products: Product[] = [];
@@ -63,4 +64,13 @@ export async function deleteFromCartById(productId: number) {
 //create cart for user
 export function createCart(userId: number) {
   return axios.post(api, { userId, products: [], active: true });
+}
+
+export async function getUserCart(){
+  
+  return axios.get(api, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
 }

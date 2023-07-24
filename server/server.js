@@ -16,7 +16,7 @@ app.use(express.json());
 //routes
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoute);
-app.use("/api/cart", cartRoutes);
+app.use("/api/carts", cartRoutes);
 
 const port = process.env.SERVER_PORT || 6001;
 

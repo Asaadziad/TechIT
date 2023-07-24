@@ -3,8 +3,8 @@ const Cart = require("../models/cartModel");
 const Product = require("../models/productModel");
 
 const getCart = async (req, res) => {
-  const user = await User.findById(req.user.id);
-  return res.status(200).json({ myProducts: user.activeCart.products });
+  
+  return res.status(200).json({ myProducts: req.user.activeCart.products });
 };
 const addProductToCart = async (req, res) => {
   const product = await Product.findById(req.params.productId);

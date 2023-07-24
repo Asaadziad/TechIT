@@ -2,7 +2,8 @@ import axios from "axios";
 import Product from "../interfaces/Product";
 
 const api: string = process.env.REACT_APP_API + "/products" || "";
-const token = JSON.parse(sessionStorage.getItem("userData") as string).token;
+
+const token = JSON.parse(sessionStorage.getItem("userData") as string)?.token;
 //get products
 export function getProducts() {
   return axios.get(api + "/getAll", {

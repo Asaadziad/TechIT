@@ -11,6 +11,7 @@ const Home: FunctionComponent<HomeProps> = () => {
   const themeContext = useContext(ThemeContext);
   return (
     <>
+    
       <div
         className={`container bg-${
           themeContext.isLight ? "light" : "dark text-light"

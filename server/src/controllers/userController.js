@@ -69,6 +69,7 @@ const loginUser = async (req, res) => {
     return res.json({
       isAdmin: user.isAdmin,
       token: generateToken(user._id),
+      userId: user._id,
     });
   } else {
     return res.status(400).json({ message: "Invalid user data" });

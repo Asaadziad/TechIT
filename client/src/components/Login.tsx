@@ -29,6 +29,7 @@ const Login: FunctionComponent<LoginProps> = () => {
                 isLoggedIn: true,
                 isAdmin: res.data.isAdmin,
                 token: res.data.token,
+                userId: res.data.userId,
               })
             );
 

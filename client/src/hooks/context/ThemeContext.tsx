@@ -9,8 +9,8 @@ export const ThemeContext = createContext({} as ThemeContextType);
 
 export const ThemeContextProvider = ({ children }: any) => {
   const [isLight, setIsLight] = useState<boolean>(
-    JSON.parse(localStorage.getItem("theme") as string) === true ? true : false
-  );
+   // JSON.parse(localStorage.getItem("theme") as string) === true ? true : false
+  true);
   return (
     <ThemeContext.Provider value={{ isLight, setIsLight }}>
       {children}
