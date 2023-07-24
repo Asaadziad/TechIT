@@ -28,15 +28,14 @@ const Products: FunctionComponent<ProductsProps> = () => {
       .catch((err) => console.log(err));
   }, [productsChanged]);
 
-  let handleAddToCart = (product: Product) => {
+  let handleAddToCart = (productId : number) => {
     if (!userContext.isLoggedIn) navigate("/login");
-
-    addProductToCart(product)
-      .then(() => {
-        sendSuccessMessage("Added to cart successfully");
-        userContext.setCartItems(userContext.cartItems + 1);
-      })
-      .catch((err) => console.log(err));
+    addProductToCart(productId).then((res) => {
+      sendSuccessMessage("Added to cart successfully")
+    }).catch(err => {
+      console.log(err);
+    });
+    
   };
   let refresh = () => {
     setProductsChanged(!productsChanged);

@@ -8,9 +8,9 @@ const getCart = async (req, res) => {
 };
 const addProductToCart = async (req, res) => {
   const product = await Product.findById(req.params.productId);
-  const user = await User.findById(req.user.id);
+  const user = await User.findById(req.user._id);
   if (product) {
-    user.activeCart.products.push({ ...product });
+    user.activeCart.products.push(product);
     await user.save();
     return res
       .status(200)
@@ -20,7 +20,7 @@ const addProductToCart = async (req, res) => {
   }
 };
 const purchaseCart = async (req, res) => {
-  const user = await User.findById(req.user.id);
+  const user = await User.findById(req.user._id);
   user.activeCart.isAcitve = false;
   user.purchasedCarts.push({
     ...user.activeCart,

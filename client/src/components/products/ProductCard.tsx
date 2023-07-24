@@ -42,7 +42,7 @@ const ProductCard: FunctionComponent<ProductCardProps> = ({
             <span className="actions mb-3">
               <button
                 className="btn addToCart btn-5"
-                onClick={() => addProductToCart(product)}
+                onClick={() => addProductToCart(product._id)}
               >
                 <i className="fa-solid fa-cart-shopping me-3"></i>
                 Add to Cart

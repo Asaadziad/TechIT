@@ -1,9 +1,6 @@
 import { FunctionComponent, useContext } from "react";
 import { ThemeContext } from "../hooks/context/ThemeContext";
-import BrandInfo from "./BrandInfo";
 import "./home.css";
-
-import TopSellers from "./TopSellers";
 
 interface HomeProps {}
 
@@ -29,11 +26,11 @@ const Home: FunctionComponent<HomeProps> = () => {
                 best shopping experience possible.
               </p>
             </div>
-            <TopSellers />
+            
           </section>
 
           <section className="brandInfo mt-5">
-            <BrandInfo />
+            
           </section>
         </div>
       </div>

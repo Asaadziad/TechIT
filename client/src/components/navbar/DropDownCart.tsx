@@ -74,7 +74,7 @@ const DropDownCart: FunctionComponent<DropDownCartProps> = () => {
                     <i
                       className="fa-sharp fa-solid fa-x"
                       onClick={() =>
-                        deleteFromCartById(item.id as number)
+                        deleteFromCartById(item._id as number)
                           .then(() => {
                             userContext.setCartItems(userContext.cartItems - 1);
                             sendSuccessMessage("Item deleted successfully");
