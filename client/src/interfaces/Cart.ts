@@ -1,7 +1,7 @@
 import Product from "./Product";
 
 export default interface Cart {
-  id?: number;
+  _id?: number;
   userId: string;
   products: Product[];
   active: boolean;

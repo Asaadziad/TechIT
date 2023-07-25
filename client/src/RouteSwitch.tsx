@@ -9,8 +9,6 @@ import Footer from "./components/footer/Footer";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Navbar from "./components/navbar/Navbar";
-
-import ProductPage from "./components/products/ProductPage";
 import Products from "./components/products/Products";
 import Profile from "./components/profile/Profile";
 import Register from "./components/Register";
@@ -36,7 +34,6 @@ const RouteSwitch: FunctionComponent<RouteSwitchProps> = () => {
               <Route path="/register" element={<Register />} />
               <Route path="/products">
                 <Route index element={<Products />} />
-                <Route path=":id" element={<ProductPage />} />
               </Route>
               <Route path="/cart" element={<Cart />} />
               <Route path="/profile" element={<Profile />} />
