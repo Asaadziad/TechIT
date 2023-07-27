@@ -11,7 +11,6 @@ A full-stack e-commerce website specializing in hi-tech products, developed by A
 - Browse and purchase products
 - Add products to shopping cart
 - View order history and track deliveries
-- Secure payment processing with Stripe
 - Responsive design for optimal user experience on any device
 
 ## Getting started
@@ -19,7 +18,7 @@ A full-stack e-commerce website specializing in hi-tech products, developed by A
 1. Clone the repository
    git clone https://github.com/Asaadziad/TechIT.git
 
-markdown
+
 
 2. Install dependencies
 
@@ -27,7 +26,7 @@ markdown
 npm install
 ```
 
-markdown
+
 Copy code 3. Start the development server
 
 ```
